@@ -457,3 +457,73 @@ body {
   justify-content: center;
   align-items: flex-start;
 }
+
+/* ─── MOBILE RESPONSIVENESS ─── */
+@media (max-width: 992px) {
+  .main-layout {
+    flex-direction: column;
+    overflow-y: auto;
+    height: auto;
+    min-height: calc(100vh - 64px);
+  }
+
+  .column-left {
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    border-right: none;
+    padding: 1.5rem 1rem;
+  }
+
+  .column-right {
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    overflow-x: hidden;
+    padding: 1.5rem 1rem;
+  }
+
+  .app-header {
+    padding: 10px 1rem;
+    height: auto;
+    min-height: 64px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .app-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-paper {
+    transform-origin: top center;
+    transform: scale(calc((100vw - 32px) / 794));
+    margin-bottom: calc(-297mm * (1 - ((100vw - 32px) / 794)));
+  }
+}
+
+@media (max-width: 480px) {
+  .column-left,
+  .column-right {
+    padding: 1rem 0.5rem;
+  }
+  
+  .resume-paper {
+    transform-origin: top center;
+    transform: scale(calc((100vw - 16px) / 794));
+    margin-bottom: calc(-297mm * (1 - ((100vw - 16px) / 794)));
+  }
+  
+  .form-container, .card {
+    padding: 1rem;
+  }
+  
+  .btn-base, .btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+}
