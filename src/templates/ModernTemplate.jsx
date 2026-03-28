@@ -15,159 +15,233 @@ const GithubIcon = ({ size = 24, color = "currentColor" }) => (
   </svg>
 );
 
-const ModernTemplate = ({ data }) => {
-  const { personalInfo, workExperience, education, skills, projects, sections } = data;
+const SectionHeader = ({ title }) => (
+  <h2 style={{ 
+    backgroundColor: '#ebecf3', 
+    color: '#1a1c6b', 
+    fontSize: '15px', 
+    fontWeight: 700, 
+    textAlign: 'center', 
+    padding: '6px 0', 
+    margin: '0 0 12px 0', 
+    textTransform: 'none',
+    border: 'none',
+    width: '100%',
+    letterSpacing: '0.5px'
+  }}>
+    {title}
+  </h2>
+);
+
+const renderDescription = (text) => {
+  if (!text) return null;
+  const lines = text.split('\n').filter(line => line.trim() !== '');
+  
+  if (lines.length === 1 && !text.includes('•') && !text.includes('-')) {
+     return <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.5, color: '#000' }}>{text}</p>;
+  }
 
   return (
-    <div className="template-root" style={{ display: 'flex', minHeight: '100%', fontFamily: '"Inter", sans-serif', color: '#1e293b', backgroundColor: 'white' }}>
-      {/* Left Sidebar - Now light themed */}
-      <div style={{ width: '35%', borderRight: '1px solid #e2e8f0', padding: '40px 25px', display: 'flex', flexDirection: 'column', gap: '30px' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 700, margin: '0 0 5px 0', color: '#1e293b', lineHeight: 1.2 }}>{personalInfo.name || 'Your Name'}</h1>
+    <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '13px', lineHeight: 1.5, color: '#000' }}>
+      {lines.map((line, i) => (
+        <li key={i} style={{ marginBottom: '4px' }}>{line.replace(/^[-•]\s*/, '')}</li>
+      ))}
+    </ul>
+  );
+};
+
+const ModernTemplate = ({ data }) => {
+  const { personalInfo, workExperience, education, skills, projects, sections } = data;
+  const navyColor = '#1a1c6b';
+
+  return (
+    <div className="template-root" style={{ display: 'flex', flexDirection: 'column', width: '100%', minHeight: '100%', fontFamily: '"Inter", sans-serif', color: '#000', backgroundColor: 'white', padding: '40px' }}>
+      
+      {/* Header */}
+      <div style={{ marginBottom: '25px' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '12px' }}>
+          <h1 style={{ fontSize: '30px', fontWeight: 800, margin: 0, color: navyColor, letterSpacing: '-0.5px' }}>{personalInfo.name || 'Your Name'}</h1>
+          {personalInfo.title && <div style={{ fontSize: '18px', fontStyle: 'italic', color: navyColor, fontWeight: 400 }}>{personalInfo.title}</div>}
+        </div>
         
-        <div style={{ fontSize: '13px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 5px 0', color: '#64748b', fontWeight: 700 }}>Contact</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '18px', fontSize: '12px', color: '#000', alignItems: 'center' }}>
+          {personalInfo.location && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <MapPin size={14} color={navyColor} style={{ flexShrink: 0 }} />
+              <span>{personalInfo.location}</span>
+            </div>
+          )}
           {personalInfo.email && (
-            <div style={{ color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Mail size={14} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Mail size={14} color={navyColor} style={{ flexShrink: 0 }} />
               <span>{personalInfo.email}</span>
             </div>
           )}
           {personalInfo.phone && (
-            <div style={{ color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Phone size={14} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Phone size={14} color={navyColor} style={{ flexShrink: 0 }} />
               <span>{personalInfo.phone}</span>
             </div>
           )}
-          {personalInfo.location && (
-            <div style={{ color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <MapPin size={14} />
-              <span>{personalInfo.location}</span>
-            </div>
-          )}
           {personalInfo.linkedin && (
-            <div style={{ color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <LinkedinIcon size={14} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <LinkedinIcon size={14} color={navyColor} />
               <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
-                {personalInfo.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '').replace(/\/$/, '') || 'LinkedIn'}
+                {personalInfo.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '').replace(/\/$/, '')}
               </a>
             </div>
           )}
           {personalInfo.github && (
-            <div style={{ color: '#475569', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <GithubIcon size={14} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <GithubIcon size={14} color={navyColor} />
               <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
-                {personalInfo.github.replace(/^https?:\/\/(www\.)?github\.com\//, '').replace(/\/$/, '') || 'GitHub'}
+                {personalInfo.github.replace(/^https?:\/\/(www\.)?github\.com\//, '').replace(/\/$/, '')}
               </a>
             </div>
           )}
         </div>
+      </div>
 
-        {skills.length > 0 && (
-          <div>
-            <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 10px 0', color: '#64748b', fontWeight: 700 }}>Skills</h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {skills.map(skill => (
-                <span key={skill.id} style={{ padding: '4px 10px', backgroundColor: '#eef2ff', color: '#6366f1', borderRadius: '4px', fontSize: '12px', fontWeight: 500 }}>
-                  {skill.name}
+      {/* Profile */}
+      {personalInfo.summary && (
+        <div style={{ marginBottom: '20px' }}>
+          <SectionHeader title="Profile" />
+          <p style={{ fontSize: '13px', lineHeight: 1.6, margin: 0, color: '#000', textAlign: 'justify' }}>
+            {personalInfo.summary}
+          </p>
+        </div>
+      )}
+
+      {/* Work Experience */}
+      {workExperience.length > 0 && (
+        <div style={{ marginBottom: '20px' }}>
+          <SectionHeader title="Work Experience" />
+          {workExperience.map((exp, index) => (
+            <div key={exp.id} style={{ marginBottom: index === workExperience.length - 1 ? '0' : '15px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                <strong style={{ fontSize: '14px', color: '#000' }}>{exp.role}</strong>
+                <span style={{ fontSize: '13px', color: '#000' }}>
+                  {exp.startDate} {exp.startDate && exp.endDate ? '–' : ''} {exp.endDate}
                 </span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
+                <i style={{ fontSize: '13px', color: '#000' }}>{exp.company}</i>
+                {exp.location && <span style={{ fontSize: '13px', color: '#000' }}>{exp.location}</span>}
+              </div>
+              <div style={{ marginLeft: '5px' }}>
+                {renderDescription(exp.description)}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Education */}
+      {education.length > 0 && (
+        <div style={{ marginBottom: '20px' }}>
+          <SectionHeader title="Education" />
+          {education.map((edu, index) => (
+            <div key={edu.id} style={{ marginBottom: index === education.length - 1 ? '0' : '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                <strong style={{ fontSize: '14px', color: '#000' }}>{edu.degree}</strong>
+                <span style={{ fontSize: '13px', color: '#000' }}>{edu.year}</span>
+              </div>
+              <div style={{ fontSize: '13px', fontStyle: 'italic', color: '#000', marginTop: '4px' }}>
+                {edu.institution}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Skills */}
+      {skills.length > 0 && (
+        <div style={{ marginBottom: '20px' }}>
+          <SectionHeader title="Skills" />
+          <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '13px', lineHeight: 1.6, color: '#000' }}>
+            {skills.map(skill => (
+              <li key={skill.id} style={{ marginBottom: '6px' }}>{skill.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Projects */}
+      {projects.length > 0 && (
+        <div style={{ marginBottom: '20px' }}>
+          <SectionHeader title="Projects" />
+          {projects.map((proj, index) => (
+            <div key={proj.id} style={{ marginBottom: index === projects.length - 1 ? '0' : '15px' }}>
+              <strong style={{ fontSize: '14px', color: '#000', display: 'block', marginBottom: '4px' }}>{proj.title}</strong>
+              {proj.techStack && <div style={{ fontSize: '12px', color: navyColor, fontStyle: 'italic', marginBottom: '6px' }}>{proj.techStack}</div>}
+              <div>
+                {renderDescription(proj.description)}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Custom Sections */}
+      {sections && sections.length > 0 && sections.map((sec, index) => {
+        if (sec.type === 'languages') {
+          return (
+            <div key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
+              <SectionHeader title={sec.title} />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', fontSize: '13px', color: '#000' }}>
+                 {sec.data.map(item => (
+                   <div key={item.id}>
+                     <strong>{item.name}</strong> {item.proficiency ? `— ${item.proficiency}` : ''}
+                   </div>
+                 ))}
+              </div>
+            </div>
+          );
+        }
+
+        if (sec.type === 'certificates' || sec.type === 'awards') {
+          return (
+            <div key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
+              <SectionHeader title={sec.title} />
+              {sec.data.map((item, i) => (
+                <div key={item.id} style={{ marginBottom: i === sec.data.length - 1 ? '0' : '12px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                    <strong style={{ fontSize: '14px', color: '#000' }}>{item.title}</strong>
+                    <span style={{ fontSize: '13px', color: '#000' }}>{item.year}</span>
+                  </div>
+                  {item.issuer && <div style={{ fontSize: '13px', fontStyle: 'italic', color: '#000', marginTop: '2px' }}>{item.issuer}</div>}
+                </div>
               ))}
             </div>
-          </div>
-        )}
+          );
+        }
 
-        {education.length > 0 && (
-          <div>
-            <h3 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 10px 0', color: '#64748b', fontWeight: 700 }}>Education</h3>
-            {education.map(edu => (
-              <div key={edu.id} style={{ marginBottom: '15px' }}>
-                <div style={{ fontWeight: 700, fontSize: '13px', color: '#1e293b' }}>{edu.degree}</div>
-                <div style={{ fontSize: '12px', color: '#64748b' }}>{edu.institution}</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8' }}>{edu.year}</div>
+        if (sec.type === 'interests' || sec.type === 'hobbies') {
+          return (
+            <div key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
+              <SectionHeader title={sec.title} />
+              <div style={{ fontSize: '13px', color: '#000' }}>
+                {sec.data.map(item => item.name).join(', ')}
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
+            <SectionHeader title={sec.title} />
+            {sec.data.map((item, i) => (
+              <div key={item.id} style={{ marginBottom: i === sec.data.length - 1 ? '0' : '12px' }}>
+                 {item.title && <strong style={{ fontSize: '14px', display: 'block', color: '#000', marginBottom: '4px' }}>{item.title}</strong>}
+                 <div style={{ fontSize: '13px', marginTop: '4px' }}>
+                   {renderDescription(item.description)}
+                 </div>
               </div>
             ))}
           </div>
-        )}
-      </div>
-
-      {/* Right Content */}
-      <div style={{ width: '65%', padding: '40px 30px', backgroundColor: '#ffffff' }}>
-        {personalInfo.summary && (
-          <section style={{ marginBottom: '30px' }}>
-            <h2 style={{ fontSize: '18px', color: '#6366f1', borderBottom: '2px solid #eef2ff', paddingBottom: '5px', marginBottom: '15px' }}>Profile</h2>
-            <p style={{ margin: '0', fontSize: '14px', lineHeight: 1.6, color: '#475569' }}>{personalInfo.summary}</p>
-          </section>
-        )}
-
-        {workExperience.length > 0 && (
-          <section style={{ marginBottom: '30px' }}>
-            <h2 style={{ fontSize: '18px', color: '#6366f1', borderBottom: '2px solid #eef2ff', paddingBottom: '5px', marginBottom: '15px' }}>Experience</h2>
-            {workExperience.map(exp => (
-              <div key={exp.id} style={{ marginBottom: '20px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <h3 style={{ margin: '0', fontSize: '15px', fontWeight: 700, color: '#1e293b' }}>{exp.role}</h3>
-                  <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 500 }}>{exp.startDate} - {exp.endDate}</span>
-                </div>
-                <div style={{ fontSize: '14px', color: '#6366f1', marginBottom: '8px', fontWeight: 600 }}>{exp.company}</div>
-                <p style={{ margin: '0', fontSize: '13px', lineHeight: 1.6, color: '#475569', whiteSpace: 'pre-line' }}>{exp.description}</p>
-              </div>
-            ))}
-          </section>
-        )}
-
-        {projects.length > 0 && (
-          <section style={{ marginBottom: '30px' }}>
-            <h2 style={{ fontSize: '18px', color: '#6366f1', borderBottom: '2px solid #eef2ff', paddingBottom: '5px', marginBottom: '15px' }}>Projects</h2>
-            {projects.map(proj => (
-              <div key={proj.id} style={{ marginBottom: '15px' }}>
-                <h3 style={{ margin: '0', fontSize: '15px', fontWeight: 700, color: '#1e293b' }}>{proj.title}</h3>
-                {proj.techStack && <div style={{ fontSize: '12px', color: '#6366f1', fontWeight: 600, marginBottom: '4px' }}>{proj.techStack}</div>}
-                <p style={{ margin: '0', fontSize: '13px', lineHeight: 1.6, color: '#475569', whiteSpace: 'pre-line' }}>{proj.description}</p>
-              </div>
-            ))}
-          </section>
-        )}
-
-        {sections && sections.length > 0 && sections.map(sec => (
-          <section key={sec.id} style={{ marginBottom: '30px' }}>
-            <h2 style={{ fontSize: '18px', color: '#6366f1', borderBottom: '2px solid #eef2ff', paddingBottom: '5px', marginBottom: '15px' }}>{sec.title}</h2>
-            
-            {sec.type === 'custom' && sec.data.map(item => (
-              <div key={item.id} style={{ marginBottom: '10px' }}>
-                {item.title && <h3 style={{ margin: '0 0 5px 0', fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>{item.title}</h3>}
-                {item.description && <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.6, color: '#475569', whiteSpace: 'pre-line' }}>{item.description}</p>}
-              </div>
-            ))}
-
-            {(sec.type === 'certificates' || sec.type === 'awards') && sec.data.map(item => (
-              <div key={item.id} style={{ marginBottom: '10px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <h3 style={{ margin: 0, fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>{item.title}</h3>
-                  <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 500 }}>{item.year}</span>
-                </div>
-                {item.issuer && <div style={{ fontSize: '13px', color: '#6366f1' }}>{item.issuer}</div>}
-              </div>
-            ))}
-
-            {sec.type === 'languages' && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                {sec.data.map(item => (
-                  <div key={item.id} style={{ fontSize: '13px', color: '#475569' }}>
-                    <strong style={{ color: '#1e293b' }}>{item.name}</strong> - {item.proficiency}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {(sec.type === 'interests' || sec.type === 'hobbies') && (
-              <div style={{ fontSize: '13px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                {sec.data.map(item => (
-                  <span key={item.id} style={{ backgroundColor: '#eef2ff', color: '#6366f1', padding: '4px 8px', borderRadius: '4px', fontSize: '12px', fontWeight: 500 }}>{item.name}</span>
-                ))}
-              </div>
-            )}
-          </section>
-        ))}
-      </div>
+        );
+      })}
+      
     </div>
   );
 };
