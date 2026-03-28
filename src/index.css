@@ -460,17 +460,22 @@ body {
 
 /* ─── MOBILE RESPONSIVENESS ─── */
 @media (max-width: 992px) {
-  .main-layout {
-    flex-direction: column;
+  .app-wrapper {
     overflow-y: auto;
     height: auto;
-    min-height: calc(100vh - 64px);
+    min-height: 100vh;
+  }
+
+  .main-layout {
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
   }
 
   .column-left {
     width: 100%;
     height: auto;
-    overflow-y: visible;
+    overflow: visible;
     border-right: none;
     padding: 1.5rem 1rem;
   }
@@ -478,12 +483,14 @@ body {
   .column-right {
     width: 100%;
     height: auto;
-    overflow-y: visible;
-    overflow-x: hidden;
+    overflow: visible;
     padding: 1.5rem 1rem;
   }
 
   .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     padding: 10px 1rem;
     height: auto;
     min-height: 64px;
