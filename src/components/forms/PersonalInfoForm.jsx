@@ -1,7 +1,8 @@
 import React from 'react';
 import { useResume } from '../../utils/ResumeContext';
+import { ImagePlus, X } from 'lucide-react';
 
-const PersonalInfoForm = () => {
+const PersonalInfoForm = ({ selectedTemplate }) => {
   const { resumeData, updatePersonalInfo } = useResume();
   const { personalInfo } = resumeData;
 
@@ -10,9 +11,51 @@ const PersonalInfoForm = () => {
     updatePersonalInfo({ [name]: value });
   };
 
+  const handlePhotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        updatePersonalInfo({ image: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removePhoto = () => {
+    updatePersonalInfo({ image: null });
+  };
+
   return (
     <div className="form-container">
-      <h3 className="heading-text" style={{ marginBottom: '1rem' }}>Personal Information</h3>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <h3 className="heading-text" style={{ margin: 0 }}>Personal Information</h3>
+        {['professional', 'creative'].includes(selectedTemplate) && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {personalInfo.image && (
+              <button 
+                onClick={removePhoto} 
+                className="btn-base" 
+                style={{ padding: '6px', backgroundColor: 'transparent', border: 'none', color: '#ef4444' }}
+                title="Remove Photo"
+              >
+                <X size={16} />
+              </button>
+            )}
+            <input 
+              type="file" 
+              id="photo-upload" 
+              accept="image/*" 
+              style={{ display: 'none' }} 
+              onChange={handlePhotoUpload} 
+            />
+            <label htmlFor="photo-upload" className="btn-base btn-secondary" style={{ padding: '6px 12px', fontSize: '13px', cursor: 'pointer', margin: 0 }}>
+              <ImagePlus size={14} />
+              {personalInfo.image ? 'Change Photo' : 'Add Photo'}
+            </label>
+          </div>
+        )}
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
         <div style={{ gridColumn: '1 / -1' }}>
           <label className="label-text">Full Name *</label>

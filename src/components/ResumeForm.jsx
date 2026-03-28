@@ -9,7 +9,7 @@ import AddSectionButton from './AddSectionButton';
 import SectionSelectorModal from './SectionSelectorModal';
 import { useResume } from '../utils/ResumeContext';
 
-const ResumeForm = () => {
+const ResumeForm = ({ selectedTemplate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { resumeData, addSection } = useResume();
 
@@ -19,7 +19,7 @@ const ResumeForm = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <PersonalInfoForm />
+      <PersonalInfoForm selectedTemplate={selectedTemplate} />
       <WorkExperienceForm />
       <EducationForm />
       <SkillsForm />

@@ -35,7 +35,7 @@ const Layout = ({ selectedTemplate }) => {
               Fill in your details below to build your professional resume.
             </p>
           </div>
-          <ResumeForm />
+          <ResumeForm selectedTemplate={selectedTemplate} />
         </div>
 
         {/* ── RIGHT: Preview ── */}
