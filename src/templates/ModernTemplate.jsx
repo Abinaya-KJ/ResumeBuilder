@@ -114,10 +114,10 @@ const ModernTemplate = ({ data }) => {
 
       {/* Work Experience */}
       {workExperience.length > 0 && (
-        <div style={{ marginBottom: '20px' }}>
+        <section style={{ marginBottom: '20px' }}>
           <SectionHeader title="Work Experience" />
           {workExperience.map((exp, index) => (
-            <div key={exp.id} style={{ marginBottom: index === workExperience.length - 1 ? '0' : '15px' }}>
+            <div key={exp.id} className="avoid-page-break" style={{ marginBottom: index === workExperience.length - 1 ? '0' : '15px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                 <strong style={{ fontSize: '14px', color: '#000' }}>{exp.role}</strong>
                 <span style={{ fontSize: '13px', color: '#000' }}>
@@ -133,15 +133,15 @@ const ModernTemplate = ({ data }) => {
               </div>
             </div>
           ))}
-        </div>
+        </section>
       )}
 
       {/* Education */}
       {education.length > 0 && (
-        <div style={{ marginBottom: '20px' }}>
+        <section style={{ marginBottom: '20px' }}>
           <SectionHeader title="Education" />
           {education.map((edu, index) => (
-            <div key={edu.id} style={{ marginBottom: index === education.length - 1 ? '0' : '12px' }}>
+            <div key={edu.id} className="avoid-page-break" style={{ marginBottom: index === education.length - 1 ? '0' : '12px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                 <strong style={{ fontSize: '14px', color: '#000' }}>{edu.degree}</strong>
                 <span style={{ fontSize: '13px', color: '#000' }}>{edu.year}</span>
@@ -151,27 +151,27 @@ const ModernTemplate = ({ data }) => {
               </div>
             </div>
           ))}
-        </div>
+        </section>
       )}
 
       {/* Skills */}
       {skills.length > 0 && (
-        <div style={{ marginBottom: '20px' }}>
+        <section className="avoid-page-break" style={{ marginBottom: '20px' }}>
           <SectionHeader title="Skills" />
           <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '13px', lineHeight: 1.6, color: '#000' }}>
             {skills.map(skill => (
               <li key={skill.id} style={{ marginBottom: '6px' }}>{skill.name}</li>
             ))}
           </ul>
-        </div>
+        </section>
       )}
 
       {/* Projects */}
       {projects.length > 0 && (
-        <div style={{ marginBottom: '20px' }}>
+        <section style={{ marginBottom: '20px' }}>
           <SectionHeader title="Projects" />
           {projects.map((proj, index) => (
-            <div key={proj.id} style={{ marginBottom: index === projects.length - 1 ? '0' : '15px' }}>
+            <div key={proj.id} className="avoid-page-break" style={{ marginBottom: index === projects.length - 1 ? '0' : '15px' }}>
               <strong style={{ fontSize: '14px', color: '#000', display: 'block', marginBottom: '4px' }}>{proj.title}</strong>
               {proj.techStack && <div style={{ fontSize: '12px', color: navyColor, fontStyle: 'italic', marginBottom: '6px' }}>{proj.techStack}</div>}
               <div>
@@ -179,14 +179,14 @@ const ModernTemplate = ({ data }) => {
               </div>
             </div>
           ))}
-        </div>
+        </section>
       )}
 
       {/* Custom Sections */}
       {sections && sections.length > 0 && sections.map((sec, index) => {
         if (sec.type === 'languages') {
           return (
-            <div key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
+            <section key={sec.id} className="avoid-page-break" style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
               <SectionHeader title={sec.title} />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', fontSize: '13px', color: '#000' }}>
                  {sec.data.map(item => (
@@ -195,16 +195,16 @@ const ModernTemplate = ({ data }) => {
                    </div>
                  ))}
               </div>
-            </div>
+            </section>
           );
         }
 
         if (sec.type === 'certificates' || sec.type === 'awards') {
           return (
-            <div key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
+            <section key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
               <SectionHeader title={sec.title} />
               {sec.data.map((item, i) => (
-                <div key={item.id} style={{ marginBottom: i === sec.data.length - 1 ? '0' : '12px' }}>
+                <div key={item.id} className="avoid-page-break" style={{ marginBottom: i === sec.data.length - 1 ? '0' : '12px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                     <strong style={{ fontSize: '14px', color: '#000' }}>{item.title}</strong>
                     <span style={{ fontSize: '13px', color: '#000' }}>{item.year}</span>
@@ -212,33 +212,33 @@ const ModernTemplate = ({ data }) => {
                   {item.issuer && <div style={{ fontSize: '13px', fontStyle: 'italic', color: '#000', marginTop: '2px' }}>{item.issuer}</div>}
                 </div>
               ))}
-            </div>
+            </section>
           );
         }
 
         if (sec.type === 'interests' || sec.type === 'hobbies') {
           return (
-            <div key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
+            <section key={sec.id} className="avoid-page-break" style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
               <SectionHeader title={sec.title} />
               <div style={{ fontSize: '13px', color: '#000' }}>
                 {sec.data.map(item => item.name).join(', ')}
               </div>
-            </div>
+            </section>
           );
         }
 
         return (
-          <div key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
+          <section key={sec.id} style={{ marginBottom: index === sections.length - 1 ? '0' : '20px' }}>
             <SectionHeader title={sec.title} />
             {sec.data.map((item, i) => (
-              <div key={item.id} style={{ marginBottom: i === sec.data.length - 1 ? '0' : '12px' }}>
+              <div key={item.id} className="avoid-page-break" style={{ marginBottom: i === sec.data.length - 1 ? '0' : '12px' }}>
                  {item.title && <strong style={{ fontSize: '14px', display: 'block', color: '#000', marginBottom: '4px' }}>{item.title}</strong>}
                  <div style={{ fontSize: '13px', marginTop: '4px' }}>
                    {renderDescription(item.description)}
                  </div>
               </div>
             ))}
-          </div>
+          </section>
         );
       })}
       

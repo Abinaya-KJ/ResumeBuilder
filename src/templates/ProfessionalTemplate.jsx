@@ -198,7 +198,7 @@ const ProfessionalTemplate = ({ data }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
               {workExperience.map(exp => (
-                <div key={exp.id}>
+                <div key={exp.id} className="avoid-page-break">
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
                     <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1e3a47', margin: 0 }}>{exp.role}</h3>
                     <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b' }}>{exp.startDate} - {exp.endDate}</span>
@@ -228,7 +228,7 @@ const ProfessionalTemplate = ({ data }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {education.map(edu => (
-                <div key={edu.id}>
+                <div key={edu.id} className="avoid-page-break">
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                     <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#1e3a47', margin: 0 }}>{edu.degree}</h3>
                     <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b' }}>{edu.year}</span>
@@ -286,7 +286,7 @@ const ProfessionalTemplate = ({ data }) => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {projects.map(proj => (
-                <div key={proj.id}>
+                <div key={proj.id} className="avoid-page-break">
                   <div style={{ fontSize: '14px', fontWeight: 700, color: '#1e3a47', marginBottom: '4px' }}>{proj.title}</div>
                   {proj.techStack && <div style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 600, marginBottom: '6px' }}>{proj.techStack}</div>}
                   <p style={{ fontSize: '12px', lineHeight: '1.6', color: '#475569', margin: 0, whiteSpace: 'pre-line' }}>

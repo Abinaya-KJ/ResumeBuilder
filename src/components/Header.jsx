@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useTheme } from '../utils/ThemeContext';
 import { useResume } from '../utils/ResumeContext';
 import { Sun, Moon, FileText, Download, Loader2, Layout as LayoutIcon } from 'lucide-react';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import html2pdf from 'html2pdf.js';
 
 const Header = ({ onOpenTemplates }) => {
   const { resumeData } = useResume();
@@ -12,18 +11,20 @@ const Header = ({ onOpenTemplates }) => {
   const exportPDF = async () => {
     const element = document.getElementById('resume-preview-scaled') || document.getElementById('resume-preview');
     if (!element) return;
+    
+    setIsExporting(true);
+
+    const opt = {
+      margin:       0,
+      filename:     `${resumeData?.personalInfo?.name ? resumeData.personalInfo.name.replace(/\s+/g, '_') : 'My'}_Resume.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.avoid-page-break', 'section'] }
+    };
 
     try {
-      setIsExporting(true);
-      const canvas = await html2canvas(element, { scale: 2, useCORS: true });
-      const imgData = canvas.toDataURL('image/png');
-      
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`${resumeData.personalInfo.name ? resumeData.personalInfo.name.replace(/\s+/g, '_') : 'My'}_Resume.pdf`);
+      await html2pdf().set(opt).from(element).save();
     } catch (error) {
       console.error("Error generating PDF", error);
     } finally {
