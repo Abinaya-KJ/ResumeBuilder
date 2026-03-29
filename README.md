@@ -2,7 +2,7 @@ ResumeBuilder Pro
 A clean and simple resume builder app built with React + Vite. You can fill in your details, pick a template, preview your resume in real time, and export it as a PDF — all in one place.
 
 Live Demo
-Deployed on Netlify → [your netlify link here]
+Deployed on Netlify → https://resumebuilderapplicationn.netlify.app/
 
 What it does
 
