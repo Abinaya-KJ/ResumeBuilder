@@ -1,16 +1,53 @@
-# React + Vite
+ResumeBuilder Pro
+A clean and simple resume builder app built with React + Vite. You can fill in your details, pick a template, preview your resume in real time, and export it as a PDF — all in one place.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live Demo
+Deployed on Netlify → [your netlify link here]
 
-Currently, two official plugins are available:
+What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Fill in your personal info, work experience, education, skills, and more
+Live preview updates as you type — no need to refresh anything
+Switch between multiple resume templates (Professional, Modern, Minimal, Creative)
+Full screen preview mode so you can see exactly how it looks
+Export your resume as a PDF with one click
+Dark mode support
+Section selector so you can customize what shows up on your resume
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Tech Stack
 
-## Expanding the ESLint configuration
+React — component based UI
+Vite — fast development build tool
+React Context API — for managing resume data and theme state across components
+CSS — custom styling
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+Project Structure
+src/
+├── components/
+│   ├── DynamicSectionRenderer.jsx
+│   ├── FullScreenResumeModal.jsx
+│   ├── Header.jsx
+│   ├── Layout.jsx
+│   ├── ResumeForm.jsx
+│   ├── ResumePreview.jsx
+│   ├── SectionSelectorModal.jsx
+│   └── TemplateSelectorModal.jsx
+├── templates/
+│   ├── CreativeTemplate.jsx
+│   ├── MinimalTemplate.jsx
+│   ├── ModernTemplate.jsx
+│   └── ProfessionalTemplate.jsx
+├── utils/
+│   ├── ResumeContext.jsx
+│   └── ThemeContext.jsx
+├── App.jsx
+├── main.jsx
+└── index.css
+
+Deployment
+This project is deployed on Netlify. Just connect your GitHub repo to Netlify and it handles the rest automatically.
+
+Author
+Built by Abinaya J  — feel free to reach out or connect on LinkedIn https://www.linkedin.com/in/abinaya-kj-0b3982302/
